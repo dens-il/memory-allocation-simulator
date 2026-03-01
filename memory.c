@@ -145,7 +145,7 @@ void mem_compact(void) {
     Block *new_head = NULL;
     Block *new_tail = NULL;
 
-    /* rebuild list with allocated blocks packed */
+    /* Build packed list: allocated blocks first */
     for (Block *cur = g_head; cur; cur = cur->next) {
         if (!cur->free) {
             Block *b = block_new(write_pos, cur->size, 0, cur->id);
@@ -158,7 +158,7 @@ void mem_compact(void) {
         }
     }
 
-    /* add one free block at end */
+    /* One free block at the end */
     if (write_pos < g_total) {
         Block *freeb = block_new(write_pos, g_total - write_pos, 1, 0);
         if (!freeb) return;
@@ -166,6 +166,17 @@ void mem_compact(void) {
         else new_tail->next = freeb;
     }
 
+    /* Free old list */
+    Block *cur = g_head;
+    while (cur) {
+        Block *n = cur->next;
+        free(cur);
+        cur = n;
+    }
+
+    g_head = new_head;
+    /* g_total stays the same, g_next_id stays the same */
+}
     mem_destroy();
     g_head = new_head;
     /* keep g_total and g_next_id as-is (g_next_id stays incrementing) */
