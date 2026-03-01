@@ -83,7 +83,29 @@ This project was built to strengthen understanding of:
 - Structured system-level programming in C
 
 ---
+## 🔍 Example Output
 
+Example session:
+
+
+Enter total simulated memory size: 256
+
+Allocate 50
+Allocated with ID = 1
+
+Allocate 30
+Allocated with ID = 2
+
+Free ID 1
+
+Memory map:
+Start Size Status
+0 50 FREE
+50 30 ALLOCATED
+80 176 FREE
+
+
+This demonstrates memory fragmentation and block merging behavior.
 ## 👤 Author
 
 **Denys Alimov**  
