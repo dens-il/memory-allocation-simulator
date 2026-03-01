@@ -1,3 +1,9 @@
+/*
+ * Memory Allocation Simulator
+ * Author: Denys Alimov
+ * Description: First-fit memory allocation simulation using linked list blocks.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "memory.h"
